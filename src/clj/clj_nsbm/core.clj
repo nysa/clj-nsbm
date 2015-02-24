@@ -21,3 +21,9 @@
   (->> (select-keys item (keys keys-attrs))
        (map #(list ((first %) keys-attrs) (last %))) flatten
        (apply hash-map)))
+
+(defn shortcut
+  [item]
+  (let [keys-attrs {:url :HREF, :date :ADD_DATE}]
+    (str "<DT><A" (attrs->str (item->attrs item keys-attrs)) ">"
+         (:title item) "</A>")))
