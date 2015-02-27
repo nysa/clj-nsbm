@@ -1,6 +1,10 @@
 (ns clj-nsbm.core
   (:require [clojure.string :as string]))
 
+(declare item->str)
+(declare subfolder)
+(declare shortcut)
+
 (def head
   (str "<!DOCTYPE NETSCAPE-Bookmark-file-1>"
        "<!--This is an automatically generated file."
@@ -22,13 +26,17 @@
        (map #(list ((first %) keys-attrs) (last %))) flatten
        (apply hash-map)))
 
+(defn item->str
+  [item]
+  (if (:url item) (shortcut item) (subfolder item)))
+
 (defn subfolder
   [item]
   (let [keys-attrs {:date :ADD_DATE}]
     (str "<DT><H3 FOLDED"
          (attrs->str (item->attrs item keys-attrs)) ">"
          (:title item) "</H3><DL><p>"
-         ;; TODO: Build children as string
+         (string/join (map item->str (:children item)))
          "</DL><p>")))
 
 (defn shortcut
