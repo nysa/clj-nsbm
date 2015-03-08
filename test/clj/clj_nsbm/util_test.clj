@@ -14,3 +14,8 @@
   (is (= (item-attrs {:url "http://clojure.org"} {:url :HREF}) {:HREF "http://clojure.org"}))
   (is (= (item-attrs {:url "http://clojure.org"} {:url :HREF, :date :ADD_DATE}) {:HREF "http://clojure.org"}))
   (is (= (item-attrs {:url "http://clojure.org" :date 0} {:url :HREF, :date :ADD_DATE}) {:HREF "http://clojure.org" :ADD_DATE 0})))
+
+(deftest escape-html-test
+  (is (= (escape-html "zero < one") "zero &lt; one"))
+  (is (= (escape-html "two > one") "two &gt; one"))
+  (is (= (escape-html "'single' & \"double\"") "&#39;single&#39; &amp; &quot;double&quot;")))

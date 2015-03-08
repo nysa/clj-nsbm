@@ -20,3 +20,9 @@
   with the keys in kmap renamed to the values in kmap."
   [m, kmap]
   (-> m (select-keys (keys kmap)) (rename-keys kmap)))
+
+(defn escape-html
+  "Returns a string with HTML syntax characters in s escaped.
+  See http://www.w3.org/International/questions/qa-escapes#use"
+  [s]
+  (string/escape s {\< "&lt;", \> "&gt;", \& "&amp;", \" "&quot;", \' "&#39;"}))
