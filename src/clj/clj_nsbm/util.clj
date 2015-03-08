@@ -1,5 +1,6 @@
 (ns clj-nsbm.util
-  (:require [clojure.string :as string]))
+  (:require [clojure.string :as string])
+  (:require [clojure.set :refer [rename-keys]]))
 
 (defn attr-str
   "Returns the string representation of a given vector as an HTML attribute
@@ -10,12 +11,12 @@
 
 (defn attrs-str
   "Returns the string representation of a given map as HTML attribute
-  key/value pairs"
+  key/value pairs."
   [m]
   (->> m (map attr-str) string/join))
 
-(defn item->attrs
-  [item, keys-attrs]
-  (->> (select-keys item (keys keys-attrs))
-       (map #(list ((first %) keys-attrs) (last %))) flatten
-       (apply hash-map)))
+(defn item-attrs
+  "Returns a map containing only those entries in m whose key is in kmap,
+  with the keys in kmap renamed to the values in kmap."
+  [m, kmap]
+  (-> m (select-keys (keys kmap)) (rename-keys kmap)))

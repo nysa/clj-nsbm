@@ -23,15 +23,15 @@
 
 (defn subfolder
   [item]
-  (let [keys-attrs {:date :ADD_DATE}]
+  (let [kmap {:date :ADD_DATE}]
     (str "<DT><H3 FOLDED"
-         (attrs-str (item->attrs item keys-attrs)) ">"
+         (-> item (item-attrs kmap) attrs-str) ">"
          (:title item) "</H3><DL><p>"
          (string/join (map item->str (:children item)))
          "</DL><p>")))
 
 (defn shortcut
   [item]
-  (let [keys-attrs {:url :HREF, :date :ADD_DATE}]
-    (str "<DT><A" (attrs-str (item->attrs item keys-attrs)) ">"
+  (let [kmap {:url :HREF, :date :ADD_DATE}]
+    (str "<DT><A" (-> item (item-attrs kmap) attrs-str) ">"
          (:title item) "</A>")))
