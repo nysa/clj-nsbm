@@ -24,14 +24,18 @@
 (defn subfolder
   [item]
   (let [kmap {:date :ADD_DATE}]
-    (str "<DT><H3 FOLDED"
-         (-> item (item-attrs kmap) attrs-str) ">"
-         (:title item) "</H3><DL><p>"
+    (str "<DT>"
+         "<H3 FOLDED" (-> item (item-attrs kmap) attrs-str) ">"
+         (escape-html (:title item))
+         "</H3>"
+         "<DL><p>"
          (string/join (map item->str (:children item)))
          "</DL><p>")))
 
 (defn shortcut
   [item]
   (let [kmap {:url :HREF, :date :ADD_DATE}]
-    (str "<DT><A" (-> item (item-attrs kmap) attrs-str) ">"
-         (:title item) "</A>")))
+    (str "<DT>"
+         "<A" (-> item (item-attrs kmap) attrs-str) ">"
+         (escape-html (:title item))
+         "</A>")))
