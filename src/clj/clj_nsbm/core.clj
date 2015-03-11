@@ -33,7 +33,10 @@
 
 (defn shortcut
   [item]
-  (let [kmap {:url :HREF, :date :ADD_DATE}]
+  (let [kmap {:url :HREF
+              :date :ADD_DATE
+              :modified :LAST_MODIFIED
+              :visited :LAST_VISIT}]
     (str "<DT>"
          "<A" (-> item (item-attrs kmap) attrs-str) ">"
          (escape-html (:title item))
