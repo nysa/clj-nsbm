@@ -7,14 +7,16 @@
 (declare shortcut)
 
 (defn nsbm
-  [m]
+  "Given a vector, returns the entire Netscape Bookmark document compiled as a
+  string."
+  [v]
   (str "<!DOCTYPE NETSCAPE-Bookmark-file-1>"
        "<!--This is an automatically generated file. "
        "It will be read and overwritten. "
        "Do Not Edit! -->"
        "<Title>Bookmarks</Title>"
        "<H1>Bookmarks</H1>"
-       "<DL>" (item-str m) "</DL>"))
+       "<DL>" (->> v (map item-str) string/join) "</DL>"))
 
 (defn item-str
   [item]
