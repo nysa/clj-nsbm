@@ -4,11 +4,11 @@
   (:require [clojure.string :as string])
   (:require [clj-nsbm.util :refer :all]))
 
-(declare item-str)
-(declare subfolder)
-(declare shortcut)
+(declare build-item)
+(declare build-subfolder)
+(declare build-shortcut)
 
-(defn nsbm
+(defn build
   "Given a vector, returns the entire Netscape Bookmark document compiled as a
   string."
   [v]
@@ -18,16 +18,16 @@
        "Do Not Edit! -->"
        "<Title>Bookmarks</Title>"
        "<H1>Bookmarks</H1>"
-       "<DL>" (->> v (map item-str) string/join) "</DL>"))
+       "<DL>" (->> v (map build-item) string/join) "</DL>"))
 
-(defn item-str
+(defn build-item
   "Given a map, returns a string representing either a subfolder or shortcut.
   The map is represented as a shortcut if the :url key exists and a subfolder
   otherwise."
   [m]
-  (if (:url m) (shortcut m) (subfolder m)))
+  (if (:url m) (build-shortcut m) (build-subfolder m)))
 
-(defn subfolder
+(defn build-subfolder
   "Given a map, returns a string representing a subfolder."
   [m]
   (let [kmap {:date :ADD_DATE}]
@@ -36,10 +36,10 @@
          (escape-html (:title m))
          "</H3>"
          "<DL><p>"
-         (string/join (map item-str (:children m)))
+         (string/join (map build-item (:children m)))
          "</DL><p>")))
 
-(defn shortcut
+(defn build-shortcut
   "Given a map, returns a string representing a shortcut."
   [m]
   (let [kmap {:url :HREF
