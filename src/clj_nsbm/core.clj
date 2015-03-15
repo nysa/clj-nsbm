@@ -2,7 +2,7 @@
   "Public API for building Netscape Bookmark documents. For specs see
   https://msdn.microsoft.com/en-us/library/aa753582%28v=vs.85%29.aspx"
   (:require [clojure.string :as string]
-            [clj-nsbm.util :refer :all]))
+            [clj-nsbm.util :as util]))
 
 (declare build-item)
 (declare build-subfolder)
@@ -32,8 +32,8 @@
   [m]
   (let [kmap {:date :ADD_DATE}]
     (str "<DT>"
-         "<H3 FOLDED" (-> m (item-attrs kmap) attrs-str) ">"
-         (escape-html (:title m))
+         "<H3 FOLDED" (-> m (util/item-attrs kmap) util/attrs-str) ">"
+         (util/escape-html (:title m))
          "</H3>"
          "<DL><p>"
          (string/join (map build-item (:children m)))
@@ -47,6 +47,6 @@
               :modified :LAST_MODIFIED
               :visited :LAST_VISIT}]
     (str "<DT>"
-         "<A" (-> m (item-attrs kmap) attrs-str) ">"
-         (escape-html (:title m))
+         "<A" (-> m (util/item-attrs kmap) util/attrs-str) ">"
+         (util/escape-html (:title m))
          "</A>")))
