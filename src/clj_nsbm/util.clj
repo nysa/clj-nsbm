@@ -1,6 +1,6 @@
 (ns clj-nsbm.util
-  (:require [clojure.string :as string])
-  (:require [clojure.set :refer [rename-keys]]))
+  (:require [clojure.string :as string]
+            [clojure.set :refer [rename-keys]]))
 
 (defn attr-str
   "Returns the string representation of a given vector as an HTML attribute

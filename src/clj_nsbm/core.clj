@@ -1,8 +1,8 @@
 (ns clj-nsbm.core
   "Public API for building Netscape Bookmark documents. For specs see
   https://msdn.microsoft.com/en-us/library/aa753582%28v=vs.85%29.aspx"
-  (:require [clojure.string :as string])
-  (:require [clj-nsbm.util :refer :all]))
+  (:require [clojure.string :as string]
+            [clj-nsbm.util :refer :all]))
 
 (declare build-item)
 (declare build-subfolder)
