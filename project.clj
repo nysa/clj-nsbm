@@ -1,4 +1,4 @@
-(defproject com.nysavann/clj-nsbm "0.1.0-SNAPSHOT"
+(defproject com.nysavann/clj-nsbm "0.1.0"
   :description "Library for building Netscape Bookmark files"
   :url "https://github.com/nysa/clj-nsbm"
   :license {:name "Eclipse Public License"
