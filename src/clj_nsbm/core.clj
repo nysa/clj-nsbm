@@ -33,7 +33,7 @@
   (let [kmap {:date :ADD_DATE}]
     (str "<DT>"
          "<H3 FOLDED" (-> m (util/item-attrs kmap) util/attrs-str) ">"
-         (util/escape-html (:title m))
+         (util/escape-html (:title m ""))
          "</H3>"
          "<DL><p>"
          (string/join (map build-item (:children m)))
@@ -48,5 +48,5 @@
               :visited :LAST_VISIT}]
     (str "<DT>"
          "<A" (-> m (util/item-attrs kmap) util/attrs-str) ">"
-         (util/escape-html (:title m))
+         (util/escape-html (:title m ""))
          "</A>")))
