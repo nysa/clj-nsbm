@@ -2,48 +2,48 @@
 
 Clojure library for building Netscape Bookmark files
 
-Based on the file structure defined here: <https://msdn.microsoft.com/en-us/library/aa753582%28v=vs.85%29.aspx>
+Based on: <https://msdn.microsoft.com/en-us/library/aa753582%28v=vs.85%29.aspx>
 
 ## Usage
 
-### Document
-
-Build an entire document with a vector of subfolders or shortcuts:
+Require the library:
 
 ```clojure
-user=> (require '[clj-nsbm.core :as nsbm])
-nil
-user=> (nsbm/build [{:title "Languages"
-                     :children [{:title "Clojure" :url "http://clojure.org/"}]}
-                    {:title "GitHub" :url "https://github.com/"}])
-"<!DOCTYPE NETSCAPE-Bookmark-file-1><!--This is an automatically generated file. It will be read and overwritten. Do Not Edit! --><Title>Bookmarks</Title><H1>Bookmarks</H1><DL><DT><H3 FOLDED>Languages</H3><DL><p><DT><A HREF=\"http://clojure.org/\">Clojure</A></DL><p><DT><A HREF=\"https://github.com/\">GitHub</A></DL>"
+(ns example
+  (:require [clj-nsbm.core :as nsbm]))
 ```
 
-### Shortcut
+### Building a document
 
-A shortcut is a Clojure map containing the `:url` key at a minimum. A shortcut may also contain the keys `:title`, `:date`, `:modified`, and `:visited`. Building a shortcut:
+Build a document with a vector containing subfolders or shortcuts:
 
 ```clojure
-user=> (require '[clj-nsbm.core :as nsbm])
-nil
-user=> (nsbm/build-shortcut {:title "Hacker News" :url "https://news.ycombinator.com/"})
-"<DT><A HREF=\"https://news.ycombinator.com/\">Hacker News</A>"
+(nsbm/build [{:title "Languages"
+              :children [{:title "Clojure" :url "http://clojure.org/"}]}
+                         {:title "Go" :url "https://golang.org/"}]}])
+;;=> "<!DOCTYPE NETSCAPE-Bookmark-file-1><!--This is an automatically generated file. It will be read and overwritten. Do Not Edit! --><Title>Bookmarks</Title><H1>Bookmarks</H1><DL><DT><H3 FOLDED>Languages</H3><DL><p><DT><A HREF=\"http://clojure.org/\">Clojure</A></DL><p><DT><A HREF=\"https://golang.org/\">Go</A></DL>"
 ```
 
-### Subfolder
+### Building a shortcut
 
-A subfolder is a Clojure map which may contain the keys `:title` and/or `:children`. Building a subfolder:
+A shortcut is a Clojure map containing the required key `:url` and optional keys `:title`, `:date`, `:modified`, and `:visited`.
 
 ```clojure
-user=> (require '[clj-nsbm.core :as nsbm])
-nil
-user=> (nsbm/build-subfolder {:title "Folder"
-                              :children [{:title "NASA" :url "http://www.nasa.gov/"}]})
-"<DT><H3 FOLDED>Folder</H3><DL><p><DT><A HREF=\"http://www.nasa.gov/\">NASA</A></DL><p>"
+(nsbm/build-shortcut {:title "Hacker News" :url "https://news.ycombinator.com/"})
+;;=> "<DT><A HREF=\"https://news.ycombinator.com/\">Hacker News</A>"
+```
+
+### Building a subfolder
+
+A subfolder is a Clojure map containing the optional keys `:title` and `:children`.
+
+```clojure
+(nsbm/build-subfolder {:title "$" :children [{:url "http://dogecoin.com/"}]})
+;;=> "<DT><H3 FOLDED>$</H3><DL><p><DT><A HREF=\"http://dogecoin.com/\"></A></DL><p>"
 ```
 
 ## License
 
 Copyright &copy; 2015 Nysa Vann <<nysa@nysavann.com>>
 
-Distributed under the Eclipse Public License. See LICENSE for details.
+Distributed under the Eclipse Public License. See [LICENSE](LICENSE) for details.
