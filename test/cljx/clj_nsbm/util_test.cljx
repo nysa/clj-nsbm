@@ -1,6 +1,8 @@
 (ns clj-nsbm.util-test
-  (:require [clojure.test :refer [deftest is testing]]
-            [clj-nsbm.util :as util]))
+  #+cljs (:require-macros [cemerick.cljs.test :refer [deftest is testing]])
+  (:require [clj-nsbm.util :as util]
+            #+clj [clojure.test :refer [deftest is testing]]
+            #+cljs [cemerick.cljs.test :as t]))
 
 (deftest attr-str-test
   (is (= (util/attr-str ["href" "http://clojure.org"]) " href=\"http://clojure.org\""))

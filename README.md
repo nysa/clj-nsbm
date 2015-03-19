@@ -1,6 +1,6 @@
 # clj-nsbm
 
-Clojure library for building Netscape Bookmark files
+Clojure(Script) library for building Netscape Bookmark files
 
 Based on: <https://msdn.microsoft.com/en-us/library/aa753582%28v=vs.85%29.aspx>
 

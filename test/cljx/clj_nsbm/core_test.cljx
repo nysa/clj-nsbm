@@ -1,6 +1,8 @@
 (ns clj-nsbm.core-test
-  (:require [clojure.test :refer [deftest is testing]]
-            [clj-nsbm.core :as nsbm]))
+  #+cljs (:require-macros [cemerick.cljs.test :refer [deftest is testing]])
+  (:require [clj-nsbm.core :as nsbm]
+            #+clj [clojure.test :refer [deftest is testing]]
+            #+cljs [cemerick.cljs.test :as t]))
 
 (deftest build-item-test
   (testing "maps containing key :url"
