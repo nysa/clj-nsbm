@@ -4,6 +4,15 @@ Clojure(Script) library for building Netscape Bookmark files
 
 Based on: <https://msdn.microsoft.com/en-us/library/aa753582%28v=vs.85%29.aspx>
 
+## Installation
+
+Add the following dependency to your `project.clj` file:
+
+```clojure
+(defproject example "0.1.0"
+  :dependencies [[com.nysavann/clj-nsbm "0.1.0"]])
+```
+
 ## Usage
 
 Require the library:
